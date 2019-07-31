@@ -1,0 +1,43 @@
+<ul class="one-page-menu" data-easing="easeInOutExpo" data-speed="1250" data-offset="160">
+
+    <% if(!currentUser) { %>
+    <li><a href="/">
+            <div>Home</div>
+        </a></li>
+ <%   } else {  %>
+    <li><a href="/success">
+            <div>Profile</div>
+        </a></li>
+   <% } %>
+
+    <li><a href="/#about" >
+            <div>About</div>
+        </a>
+    </li>
+    <li><a href="/#pricing" >
+            <div>Pricing</div>
+        </a></li>
+</ul>
+
+<ul class="one-page-menu" data-easing="easeInOutExpo" data-speed="1250" data-offset="160">
+    <li><a href="/" data-href="#section-faqs">
+            <div>Shop</div>
+        </a></li>
+    <li><a href="#" data-toggle="modal" data-target="#contactFormModal">
+            <div>Contact</div>
+        </a>
+    </li>
+    
+    <% if(currentUser) { %>
+    <li class="menu-item-emphasis"><a href="/logout">
+            <div>Logout</div>
+        </a></li>
+<%	} else {  %>
+    
+    <li class="menu-item-emphasis"><a href="#modal-login" data-lightbox="inline">
+        <div>Login</div>
+    </a></li>
+<% } %>
+</ul>
+
+

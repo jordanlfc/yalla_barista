@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link rel="stylesheet" href="/css/bootstrap.css">
+	<title>Document</title>
+</head>
+
+
+<body>
+	<section class="container d-flex justify-content-center text-center" style="height: 100vh;">
+		<div class="row mt-5">
+			<div class="col-md-12">
+				<form id = "tokenreset" action="/reset/<%= token %>" method="POST">
+					<legend>Reset Password</legend>
+					<div class="form-group">
+						<label for="password">New Password</label>
+						<input type="password" name="password" value="" id ="password" placeholder="New password" autofocus="autofocus"
+							class="form-control" />
+					</div>
+					<div class="form-group">
+						<label for="confirm">Confirm Password</label>
+						<input type="password" name="confirm" id = "confirm" value="" placeholder="Confirm password"
+							class="form-control" />
+					</div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary">Update Password</button>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</section>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.js"></script>
+<script>
+
+$("#tokenreset").validate({
+	rules: {
+		 password: {
+			required: true,
+			minlength:7, 	
+		},
+		confirm: {
+			required:true,
+			equalTo:'#password'
+		}
+	},
+	messages: {
+		password: {
+		   required: 'Enter a new password',
+		   minlength: 'Password must be 7 characters or more'
+	   },
+	   confirm: {
+		   equalTo:'Passwords do not match'
+	   }
+	},
+});
+
+// $(window).resize(function() {
+//   if ($(window).width() < 401) {
+// 	 $('#box').addClass('row')
+// 	 $('#box2').addClass('col-sm-12 w-100')
+//   }
+//  else {
+// 	$('#box').removeClass('row')
+// 	 $('#box2').removeClass('col-sm-12 w-100')
+//  }
+// });
+
+</script>
+
+
+</body>
+
+

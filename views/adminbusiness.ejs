@@ -1,0 +1,115 @@
+<%include partials/head.ejs%>
+
+
+<body>
+
+    <%include partials/modals.ejs%>
+
+    <header id="header" class="split-menu">
+
+        <div id="header-wrap" style="background:#000000 ; height: 8em">
+
+            <div class="container clearfix">
+
+                <div id="primary-menu-trigger"><i class="icon-reorder"></i></div>
+
+                <!-- Logo
+        ============================================= -->
+                <div id="logo">
+                    <%include partials/logo.ejs%>
+                </div><!-- #logo end -->
+
+                <!-- Primary Navigation
+        ============================================= -->
+                <nav id="primary-menu" class="with-arrows clearfix not-dark">
+
+                    <%include partials/navitems.ejs%>
+
+                </nav><!-- #primary-menu end -->
+
+            </div>
+
+        </div>
+
+    </header><!-- #header end -->
+
+    <section id="recruiter" class="mt-5" style="min-height: 100vh">
+        <div class="container-fluid">
+
+            <div class="heading-block noborder">
+                <h3 class=''>Admin Account</h3>
+            </div>
+
+            <% if(error && error.length > 0) { %>
+
+            <div class='alert alert-danger' role='alert'>
+                <%= error %>
+            </div>
+            <% } %>
+            <% if(success && success.length > 0) { %>
+            <div class='alert alert-success' role='alert'>
+                <%= success %>
+            </div>
+
+            <% } %>
+
+            <h4>Business Results</h4>
+
+            <section id="content">
+
+
+                <div class="content-wrap">
+
+                    <div class="container-fluid clearfix">
+
+                        <a href = "/admin" class="button button-large  mb-3" style="float: right; background-color:#cbccb9; color:black">Candidate Results</a>
+
+                        <div class="table-responsive">
+                            <table id="datatable1" class="table table-striped table-bordered" cellspacing="0"
+                                width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>County</th>
+                                        <th>City</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Ideal Barista</th>
+                                        <th>Profile</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% business.map(business => { %>
+                                    <tr>
+                                        <td><%=business.company_name%></td>
+                                        <td><%=business.country%></td>
+                                        <td><%=business.city%></td>
+                                        <td><%=business.email%></td>
+                                        <td><%=business.phone%></td>
+                                        <td><%=business.ideal%></td>
+                                        <td><a href="business_<%=business.id%>">View</td>
+                                    </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            </tbody>
+            </table>
+        </div>
+        </div>
+    </section>
+
+
+
+</body>
+
+<%include partials/scripts.ejs%>
+
+<%include partials/footer.ejs%>

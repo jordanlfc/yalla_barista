@@ -1,0 +1,99 @@
+@media(max-width:992px) { 
+#header,
+#header-wrap,
+#logo img {
+	height: 100px;
+	-webkit-transition: height .4s ease, opacity .3s ease;
+	-o-transition: height .4s ease, opacity .3s ease;
+    transition: height .4s ease, opacity .3s ease;
+}
+
+}
+
+@media(max-width:767){
+	.changed-home-page{
+		height:100vh !important
+	}
+}
+
+.btn-custom{
+	background-color: #e4ad12;
+	border:none;
+	color: #000000;	
+	width:5em;
+}
+
+.bg-cand-form,.bg-shop-form{
+	background-image: url('https://images.unsplash.com/photo-1510083300914-5ffac797d9d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat
+}
+
+.bg-shop-form{
+	background-image: url('https://images.unsplash.com/photo-1475296204602-08d15839e95f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80')
+}
+
+
+.changed-icon:before {
+    color: #000000
+}
+
+.black-text{
+	color:#000000;
+}
+
+.full-background{
+	background:#000000
+}
+
+.small-background{
+	background:url(images/clogo.png) cover no-repeat center;
+}
+
+.hide {
+	opacity:0
+}
+
+
+.resize-img{
+	height: 2.7em !important;
+	transition: none !important;
+}
+
+.resize-header{
+	height:auto !important;
+}
+
+#profile{
+	height: auto;
+}
+
+#top-profile{
+	height:40%;
+	background:blue;
+}
+
+#bottom-profile{
+	height:60%;
+	background:red;
+}
+
+.custom-row{
+	width: 100%;
+}
+
+#profile-box{
+	width: 70%;
+}
+
+#profile-image-box{
+	max-height: 70%;
+	max-width: 30%;
+	min-height: 70%;
+	min-width: 30%;
+}
+
+.bio-text{
+	margin:1em;
+}
