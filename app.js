@@ -19,6 +19,7 @@ async = require("async"),
     crypto = require("crypto"),
     bcrypt = require('bcrypt-nodejs');
 flash = require("connect-flash"),
+path          = require("path");
 
 
 
@@ -115,12 +116,34 @@ var storage2 = multer.diskStorage({
 })
 
 const upload = multer({
-    storage: storage,
+    storage:storage,
+    limits: {fileSize:10000000},
+    fileFilter : function(req,file,cb) {
+        checkFileType(file,cb);
+    }
 }).single('display');
+
+
 
 const upload2 = multer({
     storage: storage2,
 }).single('vid');
+
+const checkFileType = (file,cb) => {
+    //Allowed Extensions 
+    const filetypes = /jpeg|jpg|png/
+    //check extension
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    //check mime 
+    const mimetype = filetypes.test(file.mimetype);
+    
+    if(mimetype && extname) {
+        return cb(null,true)
+    } else {
+        cb('error: Images Only')
+    }
+}
+
 
 
 
@@ -746,6 +769,7 @@ app.get('/success', (req, res) => {
 app.post('/dp', (req, res, err) => {
     upload(req, res, (err) => {
         if (err || !req.file) {
+            req.flash('error', 'jpeg,jpg or png only')
             res.redirect('back')
         } else {
             let sql = `UPDATE users 
@@ -760,7 +784,7 @@ app.post('/dp', (req, res, err) => {
             // execute the UPDATE statement
             connection.query(sql, data, (err, results) => {
                 if (err) {
-                    res.send(err);
+                    req.flash('error', 'jpeg,jpg or png only');
                 }
                 req.flash('success', 'Picture Uploaded')
                 res.redirect('back')
