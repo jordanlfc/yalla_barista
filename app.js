@@ -19,11 +19,11 @@ async = require("async"),
     crypto = require("crypto"),
     bcrypt = require('bcrypt-nodejs');
 flash = require("connect-flash"),
-path          = require("path");
+    path = require("path");
 
 
 
-    connection.query('USE ' + dbconfig.database);
+connection.query('USE ' + dbconfig.database);
 
 
 
@@ -116,10 +116,10 @@ var storage2 = multer.diskStorage({
 })
 
 const upload = multer({
-    storage:storage,
-    limits: {fileSize:10000000},
-    fileFilter : function(req,file,cb) {
-        checkFileType(file,cb);
+    storage: storage,
+    limits: { fileSize: 10000000 },
+    fileFilter: function (req, file, cb) {
+        checkFileType(file, cb);
     }
 }).single('display');
 
@@ -129,16 +129,16 @@ const upload2 = multer({
     storage: storage2,
 }).single('vid');
 
-const checkFileType = (file,cb) => {
+const checkFileType = (file, cb) => {
     //Allowed Extensions 
     const filetypes = /jpeg|jpg|png/
     //check extension
     const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
     //check mime 
     const mimetype = filetypes.test(file.mimetype);
-    
-    if(mimetype && extname) {
-        return cb(null,true)
+
+    if (mimetype && extname) {
+        return cb(null, true)
     } else {
         cb('error: Images Only')
     }
@@ -153,21 +153,21 @@ app.get('/', (req, res) => {
 
     let sql = `SELECT * FROM testimonials`
 
-    connection.query(sql,(err,data) =>{
-        if(err){
+    connection.query(sql, (err, data) => {
+        if (err) {
             res.sendStatus(404)
         } else {
-            res.render('index', {data:data})  
+            res.render('index', { data: data })
         }
     })
 
 
-    
+
 })
 
 
-app.post('/',  isLoggedIn, (req, res, err) => {
-    if(!req.user.is_admin == 1){
+app.post('/', isLoggedIn, (req, res, err) => {
+    if (!req.user.is_admin == 1) {
         res.redirect('/')
     }
 
@@ -182,7 +182,6 @@ app.post('/',  isLoggedIn, (req, res, err) => {
                 req.body.comment, req.body.company, req.file.path, req.body.name,
             ]
 
-            console.log(data)
 
             // execute the UPDATE statement
             connection.query(sql, data, (err, results) => {
@@ -196,9 +195,9 @@ app.post('/',  isLoggedIn, (req, res, err) => {
     })
 });
 
-app.get('/new', isLoggedIn, (req,res) => {
+app.get('/new', isLoggedIn, (req, res) => {
 
-    if(!req.user.is_admin == 1){
+    if (!req.user.is_admin == 1) {
         res.redirect('/')
     }
 
@@ -220,13 +219,11 @@ app.post('/user_verify:id', (req, res) => {
     verified = ?
     WHERE 
     id = ?`
-    console.log(sql)
     let data = [
         1, id
     ]
     connection.query(sql, data, (err, user, results) => {
         if (err) {
-            console.log(err)
             res.send(results)
         }
         res.redirect('back')
@@ -239,13 +236,11 @@ app.post('/user_unverify:id', (req, res) => {
     verified = ?
     WHERE 
     id = ?`
-    console.log(sql)
     let data = [
         0, id
     ]
     connection.query(sql, data, (err, user, results) => {
         if (err) {
-            console.log(err)
             res.send(results)
         }
         res.redirect('back')
@@ -259,13 +254,12 @@ app.post('/act_prem:id', (req, res) => {
     premium = ?
     WHERE 
     id = ?`
-    console.log(sql)
+
     let data = [
         1, id
     ]
     connection.query(sql, data, (err, user, results) => {
         if (err) {
-            console.log(err)
             res.send(results)
         }
         res.redirect('back')
@@ -278,13 +272,12 @@ app.post('/deact_prem:id', (req, res) => {
     premium = ?
     WHERE 
     id = ?`
-    console.log(sql)
     let data = [
         0, id
     ]
     connection.query(sql, data, (err, user, results) => {
         if (err) {
-            console.log(err)
+
             res.send(results)
         }
         res.redirect('back')
@@ -298,13 +291,12 @@ app.post('/deact_vid:id', (req, res) => {
     videoverify = ?
     WHERE 
     id = ?`
-    console.log(sql)
     let data = [
         0, id
     ]
     connection.query(sql, data, (err, user, results) => {
         if (err) {
-            console.log(err)
+
             res.send(results)
         }
         res.redirect('back')
@@ -318,7 +310,6 @@ app.post('/act_vid:id', (req, res) => {
     videoverify = ?
     WHERE 
     id = ?`
-    console.log(sql)
     let data = [
         1, id
     ]
@@ -340,7 +331,6 @@ app.post('/delete:id', (req, res) => {
     ]
     connection.query(sql, data, (err, user, results) => {
         if (err) {
-            console.log(err)
             res.send(results)
         }
         res.redirect('/admin_business')
@@ -355,7 +345,6 @@ app.post('/user_rmdp:id', (req, res) => {
     WHERE 
     id = ?`
     let sql2 = `SELECT * FROM users WHERE id = ? `
-    console.log(sql)
     let data = [
         null, id
     ]
@@ -363,11 +352,11 @@ app.post('/user_rmdp:id', (req, res) => {
         if (err) {
             res.redirect('back')
         }
-        
+
     })
 
     connection.query(sql2, id, (err, user) => {
-        if(err) {
+        if (err) {
             res.redirect('back')
         }
         userEmail = user[0].email
@@ -410,7 +399,7 @@ app.get('/business_:id', (req, res) => {
             if (req.user.is_candidate) {
                 res.redirect(`/user_${user_id}`)
             } else {
-                console.log(address_id, user_id)
+
                 res.redirect('/fail')
             }
         } else {
@@ -427,7 +416,7 @@ app.get('/business_:id', (req, res) => {
                         if (err) {
                             res.send(err)
                         } else {
-                            console.log(candidates, result);
+
                             res.render('business', {
                                 business: result,
                                 candidates: candidates
@@ -490,7 +479,7 @@ app.get('/admin_business', isLoggedIn, (req, res) => {
 
 
 app.get('/user_:id', (req, res, err) => {
-    console.log(req.params.id)
+
 
     let user_id2 = req.query.user_ID
 
@@ -539,7 +528,7 @@ app.get('/adminuser_:id', isLoggedIn, (req, res, err) => {
         if (!result[0]) {
             res.send(404)
 
-        } else if(result[0].is_candidate == 0){
+        } else if (result[0].is_candidate == 0) {
             req.flash('error', 'User is not a candidate')
             res.redirect('/admin')
 
@@ -596,7 +585,7 @@ app.post('/cand_signup', (req, res) => {
         let data = [
             req.body.drink, req.body.award, req.body.tool, req.body.country,
             req.body.city, req.body.position, req.body.bean, req.body.experience,
-            req.body.description, 1, 0, 0, req.body.visaradios, emptiedArray, req.body.speciality, req.body.phone, req.body.available, req.body.rout , req.user.id
+            req.body.description, 1, 0, 0, req.body.visaradios, emptiedArray, req.body.speciality, req.body.phone, req.body.available, req.body.rout, req.user.id
         ];
 
         // execute the UPDATE statement
@@ -664,7 +653,7 @@ app.post('/user_:id', isLoggedIn, (req, res) => {
         req.body.description, req.body.phone, req.body.visaradios, emptiedArray, req.body.speciality, req.body.available, req.body.rout, req.user.id
     ];
 
-    console.log(data)
+
 
     // execute the UPDATE statement
     connection.query(sql, data, (error, results, fields) => {
@@ -704,10 +693,10 @@ app.post('/business1_:id', isLoggedIn, (req, res) => {
 
     let data = [
         req.body.name, req.body.email, req.body.phone, req.body.country,
-        req.body.city, req.body.numemp,req.user.ideal, req.user.id
+        req.body.city, req.body.numemp, req.user.ideal, req.user.id
     ];
 
-    console.log(data)
+
 
     // execute the UPDATE statement
     connection.query(sql, data, (error, results, fields) => {
@@ -754,6 +743,37 @@ app.get('/success', (req, res) => {
 
     }
 });
+
+
+
+
+//like post 
+
+app.post('/likebutton', (req, res) => {
+
+    let sql = `
+    SELECT email,fname,lname,company_name
+    FROM users
+    WHERE id = ?
+    `
+    let client = req.body.client
+    let barista = req.body.barista
+
+    connection.query(sql, client, (err, found) => {
+        if (err) {
+            req.flash('error', 'unable to like user')
+            res.redirect('back')
+        }
+        connection.query(sql, barista, (err, found2) => {
+            if (err) {
+                req.flash('error', 'unable to like user')
+                res.redirect('back')
+            }
+            likeNotification(found,found2)
+            console.log(found[0].email,found2[0].email)
+        })
+    })
+})
 
 
 
@@ -831,7 +851,7 @@ require('./routes/routes.js')(app, passport);
 app.post('/cv', withcv, (req, res) => {
 
     const cv = req.file;
-    console.log(cv)
+
 
 
     const output = `
@@ -846,7 +866,7 @@ app.post('/cv', withcv, (req, res) => {
     
     `
 
-    console.log(output)
+
 
     // async..await is not allowed in global scope, must use a wrapper
     async function main() {
@@ -865,7 +885,7 @@ app.post('/cv', withcv, (req, res) => {
             }
         });
 
-        console.log('this far')
+
 
         // send mail with defined transport object
         let info = await transporter.sendMail({
@@ -883,7 +903,7 @@ app.post('/cv', withcv, (req, res) => {
 
         });
 
-        console.log(info)
+
 
 
 
@@ -906,8 +926,8 @@ app.post('/cv', withcv, (req, res) => {
         1, req.user.id
     ]
 
-    connection.query(sql,data,(err) => {
-        if(err){
+    connection.query(sql, data, (err) => {
+        if (err) {
             req.flash('error', 'upload failed')
             res.redirect('back')
         }
@@ -915,8 +935,8 @@ app.post('/cv', withcv, (req, res) => {
         res.redirect('back')
 
     })
-    
-    
+
+
 })
 
 
@@ -941,7 +961,7 @@ app.post('/contact', (req, res) => {
     
     `
 
-    console.log(output)
+
 
     // async..await is not allowed in global scope, must use a wrapper
     async function main() {
@@ -960,7 +980,7 @@ app.post('/contact', (req, res) => {
             }
         });
 
-        console.log('this far')
+
 
         // send mail with defined transport object
         let info = await transporter.sendMail({
@@ -971,7 +991,7 @@ app.post('/contact', (req, res) => {
 
         });
 
-        console.log(info)
+
 
 
 
@@ -1010,7 +1030,7 @@ app.post('/forgot', function (req, res, next) {
             let data2 = [
                 token, Date.now() + 360000000, data
             ]
-            console.log()
+
 
             connection.query(sql, data, function (err, user) {
                 if (!user[0]) {
@@ -1246,6 +1266,41 @@ function pictureWarning() {
 }
 
 
+function likeNotification(x,y) {
+    var smtpTransport = nodemailer.createTransport({
+        host: "mail.yallabarista.com",
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+            user: 'mailer@yallabarista.com', // generated ethereal user
+            pass: 'admin1289' // generated ethereal password
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+    });
+    var mailOptions = {
+        to: `jordanfear@chompsmedia.com`,
+        from: 'mailer@yallabarista.com',
+        subject: 'Yalla Barista - Display Picture Warning',
+        text: `
+        User ${x[0].company_name} has liked Barista ${y[0].fname} ${y[0].lname}.
+
+        Business details - ${x[0]}
+
+
+
+        Barista Email - ${y[0]}
+        `
+    }
+    smtpTransport.sendMail(mailOptions, function (err) {
+        console.log('mail sent');
+        console.log('success', 'An e-mail has been sent to ' + user[0].email + ' with further instructions.');
+        done(err, 'done');
+    });
+}
+
+
 
 
 
@@ -1258,6 +1313,21 @@ function pictureWarning() {
 
 //nodemailer end ------------------
 
+// function userRemover(){
+
+//     let sql = `
+//         DELETE FROM
+//         users
+//         WHERE 
+//         coffee IS NULL
+//         `
+//     connection.query(sql,(err,found) => {
+//         console.log(found)
+//     });
+
+// }
+
+// userRemover()
 
 
 
@@ -1267,10 +1337,11 @@ function pictureWarning() {
 
 
 
-app.get('/terms', (req,res) => {
+
+app.get('/terms', (req, res) => {
     res.render('terms/terms')
 })
-app.get('/privacy', (req,res) => {
+app.get('/privacy', (req, res) => {
     res.render('terms/privacy')
 })
 

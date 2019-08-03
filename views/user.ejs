@@ -75,7 +75,12 @@
 
             <div class="row clearfix justify-content-center">
 
+
+
+
                 <div id="changerforphone" class="col-md-9">
+
+
 
 
                     <% if(candidate[0].display_path && candidate[0].display_path.length >= 3) { %>
@@ -88,18 +93,28 @@
                     <%  } %>
 
                     <div id="fileuploads" class="heading-block noborder" style="display: grid">
+
                         <h3><%=candidate[0].fname[0]%> <%=candidate[0].lname[0]%> </h3>
                         <span><%=candidate[0].city.toUpperCase()%></span>
 
 
+                        <% if(currentUser.is_business == 1){ %>
+
+                        <img style="position:absolute; left:80%" id="likebutton"
+                            src=data:image/png;base64,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
+                            height="100">
 
 
+                        <% } %>
 
                         <%if(currentUser.is_candidate == 1){ %>
                         <form class="fileuploads d-none" action="/dp" enctype="multipart/form-data" method="post">
                             <input type="file" name="display" id="display1">
                             <button type="submit">upload</button>
                         </form>
+
+
+
 
 
 
@@ -113,7 +128,10 @@
 
                         <% } %>
 
+
+
                     </div>
+
 
                     <%if(currentUser.is_candidate == 1) {  %>
 
@@ -127,10 +145,15 @@
 
 
 
+
+
+
+
+
+
                         <button id="editbutton" class="button button-large   col-md-6"
                             style="color:black ; background-color:#e4ad12;">Upload</button>
-                        <a href="/user_<%=currentUser.id%>/edit"
-                            class="button button-large   col-md-6 text-center"
+                        <a href="/user_<%=currentUser.id%>/edit" class="button button-large   col-md-6 text-center"
                             style="color:black ; background-color:#cdccb9">Edit Details</a>
 
 
@@ -138,285 +161,289 @@
                     <% } %>
 
 
+
                     <div class="clear"></div>
 
                     <div class="row clearfix">
 
+
+
                         <div class="col-lg-12">
 
                             <div class="tabs tabs-alt clearfix" id="tabs-profile">
+                                <% if(error && error.length > 0) { %>
 
-                                <ul class="tab-nav clearfix">
-                                    <li><a href="#tab-feeds"><i class="icon-info"></i> About</a></li>
-                                    <li><a href="#tab-video"><i class="icon-video"></i> Video</a></li>
-                                </ul>
+                                <div class='alert alert-danger' role='alert'>
+                                    <%= error %>
+                                </div>
+                                <% } %>
+                                <% if(success && success.length > 0) { %>
+                                <div class='alert alert-success' role='alert'>
+                                    <%= success %>
+                                </div>
+                                <% } %>
+                            </div>
+
+                            
+
+                            <ul class="tab-nav clearfix">
+                                <li><a href="#tab-feeds"><i class="icon-info"></i> About</a></li>
+                                <li><a href="#tab-video"><i class="icon-video"></i> Video</a></li>
+                            </ul>
 
 
 
-                                <div class="tab-container">
+                            <div class="tab-container">
 
-                                    <div class="tab-content clearfix" id="tab-feeds">
+                                <div class="tab-content clearfix" id="tab-feeds">
 
-                                            <strong class=""><p><%=candidate[0].description%></p>
-                                            </strong>
+                                    <strong class="">
+                                        <p><%=candidate[0].description%></p>
+                                    </strong>
 
-                                            <% if(error && error.length > 0) { %>
-                                                
-                                                    <div class='alert alert-danger' role='alert'>
-                                                        <%= error %>
-                                                    </div>
-                                                    <% } %>
-                                                    <% if(success && success.length > 0) { %>
-                                                    <div class='alert alert-success' role='alert'>
-                                                        <%= success %>
-                                                    </div>
-                                                </div>
-                        
-                                                <% } %>
+                                    <div class="col_half nobottommargin">
+                                        <ul class="list-group nobottommargin">
+                                            <li style="height:7em; background-color:#cdccb9; color:black"
+                                                class="list-group-item list-group-item-success"><strong>Visa
+                                                    Status
+                                                    -
+                                                    <%=candidate[0].visastatus%></strong></li>
+                                            <li style="height:7em; background-color: #e4ad12; color:black"
+                                                class="list-group-item list-group-item-info">
+                                                <strong>Available From
+                                                    -
+                                                    <%=candidate[0].available%></strong></li>
+                                            <li style="height:7em; background-color:#cdccb9; color:black"
+                                                class="list-group-item list-group-item-warning">
+                                                <strong>Previous
+                                                    Experience as -
+                                                    <%=candidate[0].previousex.slice(1)%></strong>
+                                            </li>
+                                            <li style="height:7em; background-color:#e4ad12; color:black"
+                                                class="list-group-item list-group-item-danger">
+                                                <strong>Speciality -
+                                                    <%=candidate[0].speciality%></strong>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col_half col_last nobottommargin">
+                                        <ul class="list-group nobottommargin">
+                                            <li style="height:7em; background-color:#cdccb9; color:black"
+                                                class="list-group-item list-group-item-success">
+                                                <%if(candidate[0].premium == 1){ %>
+                                                <strong>Premium - Yes </strong>
+                                                <% } else { %>
+                                                <strong>Premium - No </strong>
+                                                <% }  %></li>
+                                            <li style="height:7em; background-color:#e4ad12; color:black"
+                                                class="list-group-item list-group-item-success">
+                                                <%if(candidate[0].verified == 1){ %>
+                                                <strong>Verified - Yes </strong>
+                                                <% } else { %>
+                                                <strong>Verified - No </strong>
+                                                <% }  %></li>
+                                            <li style="height:7em; display: hidden; background-color:#cdccb9; color:black"
+                                                class="list-group-item list-group-item-warning">
+                                                <%  if(currentUser.is_business==1){ %>
+                                                <p>Email Hidden</p>
+                                                <%  } else {  %>
+                                                <strong>
+                                                    Email - <%=candidate[0].email%></strong>
+                                                <%  } %>
 
-                                        <div class="col_half nobottommargin">
-                                            <ul class="list-group nobottommargin">
-                                                <li style="height:7em; background-color:#cdccb9; color:black"
-                                                    class="list-group-item list-group-item-success"><strong>Visa
-                                                        Status
-                                                        -
-                                                        <%=candidate[0].visastatus%></strong></li>
-                                                <li style="height:7em; background-color: #e4ad12; color:black"
-                                                    class="list-group-item list-group-item-info">
-                                                    <strong>Available From
-                                                        -
-                                                        <%=candidate[0].available%></strong></li>
-                                                <li style="height:7em; background-color:#cdccb9; color:black"
-                                                    class="list-group-item list-group-item-warning">
-                                                    <strong>Previous
-                                                        Experience as -
-                                                        <%=candidate[0].previousex.slice(1)%></strong>
-                                                </li>
-                                                <li style="height:7em; background-color:#e4ad12; color:black"
-                                                    class="list-group-item list-group-item-danger">
-                                                    <strong>Speciality -
-                                                        <%=candidate[0].speciality%></strong>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="col_half col_last nobottommargin">
-                                            <ul class="list-group nobottommargin">
-                                                <li style="height:7em; background-color:#cdccb9; color:black"
-                                                    class="list-group-item list-group-item-success">
-                                                    <%if(candidate[0].premium == 1){ %>
-                                                    <strong>Premium - Yes </strong>
-                                                    <% } else { %>
-                                                    <strong>Premium - No </strong>
-                                                    <% }  %></li>
-                                                <li style="height:7em; background-color:#e4ad12; color:black"
-                                                    class="list-group-item list-group-item-success">
-                                                    <%if(candidate[0].verified == 1){ %>
-                                                    <strong>Verified - Yes </strong>
-                                                    <% } else { %>
-                                                    <strong>Verified - No </strong>
-                                                    <% }  %></li>
-                                                <li style="height:7em; display: hidden; background-color:#cdccb9; color:black"
-                                                    class="list-group-item list-group-item-warning">
-                                                  <%  if(currentUser.is_business==1){ %>
-                                                        <p>Email Hidden</p>
-                                                  <%  } else {  %>
-                                                    <strong>
-                                                     Email - <%=candidate[0].email%></strong>
-                                                  <%  } %>
-                                                    
-                                                </li>
-                                                
-                                                <li style="height:7em; background-color:#e4ad12; color:black"
-                                                    class="list-group-item list-group-item-danger"><strong style="font-size: 0.8em">
-                                                        Last Job / Daily Routine - <%=candidate[0].rout %>
-                                                        </strong>
-                                                </li>
-                                            </ul>
-                                        </div>
+                                            </li>
 
-                                        <div class="line"></div>
-
+                                            <li style="height:7em; background-color:#e4ad12; color:black"
+                                                class="list-group-item list-group-item-danger"><strong
+                                                    style="font-size: 0.8em">
+                                                    Last Job / Daily Routine - <%=candidate[0].rout %>
+                                                </strong>
+                                            </li>
+                                        </ul>
                                     </div>
 
+                                    <div class="line"></div>
 
-
-
-                                    <div class="tab-content clearfix" style="text-align: center" id="tab-video">
-
-
-
-                                        <%if (currentUser.is_candidate == 1 && (!currentUser.video_path && !currentUser.premium)){ %>
-
-                                        <button id="prembutton"
-                                            class="button button-large   col-md-3"
-                                            style="background-color:#e4ad12; color:black">Buy Premium</button>
-
-                                        <% } %>
+                                </div>
 
 
 
 
+                                <div class="tab-content clearfix" style="text-align: center" id="tab-video">
 
 
-                                        <%if (currentUser.is_candidate == 1 && (!currentUser.video_path && currentUser.premium)){ %>
 
-                                        <form action="/vid" enctype="multipart/form-data" method="post">
-                                            <input type="file" name="vid" id="vid" accept="video/*">
-                                            <button type="submit">upload</button>
-                                        </form>
+                                    <%if (currentUser.is_candidate == 1 && (!currentUser.video_path && !currentUser.premium)){ %>
 
-                                        <% } %>
+                                    <button id="prembutton" class="button button-large   col-md-3"
+                                        style="background-color:#e4ad12; color:black">Buy Premium</button>
 
-                                        <%if(candidate[0].premium == 1 && candidate[0].video_path) { %>
-                                        <%  if(currentUser.is_business==1 && candidate[0].videoverify ==0){ %>
-                                        <h3>Video is awaiting approval</h3>
-                                        <%   } else { %>
-                                        <video width="320" height="240" controls>
-                                            <source src="/<%=candidate[0].video_path.slice(11)%>" type="video/mp4">
-                                        </video>
-                                        <% }  %>
-                                        <%  } %>
+                                    <% } %>
 
 
+
+
+
+
+                                    <%if (currentUser.is_candidate == 1 && (!currentUser.video_path && currentUser.premium)){ %>
+
+                                    <form action="/vid" enctype="multipart/form-data" method="post">
+                                        <input type="file" name="vid" id="vid" accept="video/*">
+                                        <button type="submit">upload</button>
+                                    </form>
+
+                                    <% } %>
+
+                                    <%if(candidate[0].premium == 1 && candidate[0].video_path) { %>
+                                    <%  if(currentUser.is_business==1 && candidate[0].videoverify ==0){ %>
+                                    <h3>Video is awaiting approval</h3>
+                                    <%   } else { %>
+                                    <video width="320" height="240" controls>
+                                        <source src="/<%=candidate[0].video_path.slice(11)%>" type="video/mp4">
+                                    </video>
+                                    <% }  %>
+                                    <%  } %>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-wrap">
+            <div class="container clearfix">
+
+                <div class="row grid-container" data-layout="masonry" style="overflow: visible">
+                    <div class="col-lg-4 mb-4">
+                        <div class="flip-card text-center">
+                            <div class="flip-card-front dark" style="background-image: url('images/5.jpg')">
+                                <div class="flip-card-inner">
+                                    <div class="card nobg noborder text-center">
+                                        <div class="card-body">
+                                            <i class="icon-circle h1"></i>
+                                            <h3 class="card-title">My favourite bean origin?</h3>
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back  no-after" style="background-image:url('images/5.jpg')">
+                                <div class="flip-card-inner">
+                                    <i class="icon-coffee h1"></i>
+                                    <h3 class="mb-2 text-white">My bean origin is <%=candidate[0].bean%>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="flip-card text-center top-to-bottom">
+                            <div class="flip-card-front dark" style="background-image: url('images/6.jpg');">
+                                <div class="flip-card-inner">
+                                    <div class="card nobg noborder text-center">
+                                        <div class="card-body">
+                                            <i class="icon-cup h1"></i>
+                                            <h3 class="card-title">My favourite Barista tool?</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back" style="background-image: url('images/6.jpg');">
+                                <div class="flip-card-inner">
+                                    <i class="icon-cup h1"></i>
+                                    <h3 class="mb-2 text-white">My favourite Barista tool is
+                                        <%=candidate[0].tool %>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="flip-card text-center">
+                            <div class="flip-card-front dark" data-height-xl="505"
+                                style="background-image: url('images/3.jpg');">
+                                <div class="flip-card-inner">
+                                    <div class="card nobg noborder text-center">
+                                        <div class="card-body">
+                                            <i class="icon-coffee h1"></i>
+                                            <h3 class="card-title">My favourite Coffee?</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back" data-height-xl="505"
+                                style="background-image: url('images/3.jpg');">
+                                <div class="flip-card-inner">
+                                    <i class="icon-coffee h1"></i>
+                                    <h3 class="mb-2 text-white">My favourite coffee is
+                                        <%=candidate[0].coffee%>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="flip-card text-center top-to-bottom">
+                            <div class="flip-card-front bg-info dark" data-height-xl="200"
+                                style="background-image: url('images/7.jpg');">
+                                <div class="flip-card-inner">
+                                    <div class="card nobg noborder text-center">
+                                        <div class="card-body">
+                                            <i class="icon-shop h1"></i>
+                                            <h3 class="card-title">My current position?</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back" data-height-xl="200"
+                                style="background-image: url('images/3.jpg');">
+                                <div class="flip-card-inner dark">
+                                    <i class="icon-shop h1"></i>
+                                    <h3 class="card-title">My current position is
+                                        <%=candidate[0].position %></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-4 mb-4">
+                        <div class="flip-card top-to-bottom">
+                            <div class="flip-card-front" data-height-xl="200"
+                                style="background-image: url('images/3.jpg');">
+                                <div class="flip-card-inner dark">
+                                    <div class="card nobg noborder">
+                                        <div class="card-body">
+                                            <i class="icon-shop h1"></i>
+                                            <h3 class="card-title">Awards?</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flip-card-back" data-height-xl="200"
+                                style="background-image: url('images/3.jpg');">
+                                <div class="flip-card-inner dark">
+                                    <i class="icon-shop h1"></i>
+
+                                    <h3 class="card-title">I have an award for <%=candidate[0].award %></h3>
 
 
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="content-wrap">
-                <div class="container clearfix">
-
-                    <div class="row grid-container" data-layout="masonry" style="overflow: visible">
-                        <div class="col-lg-4 mb-4">
-                            <div class="flip-card text-center">
-                                <div class="flip-card-front dark" style="background-image: url('images/5.jpg')">
-                                    <div class="flip-card-inner">
-                                        <div class="card nobg noborder text-center">
-                                            <div class="card-body">
-                                                <i class="icon-circle h1"></i>
-                                                <h3 class="card-title">My favourite bean origin?</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flip-card-back  no-after" style="background-image:url('images/5.jpg')">
-                                    <div class="flip-card-inner">
-                                        <i class="icon-coffee h1"></i>
-                                        <h3 class="mb-2 text-white">My bean origin is <%=candidate[0].bean%>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-4">
-                            <div class="flip-card text-center top-to-bottom">
-                                <div class="flip-card-front dark" style="background-image: url('images/6.jpg');">
-                                    <div class="flip-card-inner">
-                                        <div class="card nobg noborder text-center">
-                                            <div class="card-body">
-                                                <i class="icon-cup h1"></i>
-                                                <h3 class="card-title">My favourite Barista tool?</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flip-card-back" style="background-image: url('images/6.jpg');">
-                                    <div class="flip-card-inner">
-                                        <i class="icon-cup h1"></i>
-                                        <h3 class="mb-2 text-white">My favourite Barista tool is
-                                            <%=candidate[0].tool %>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-4">
-                            <div class="flip-card text-center">
-                                <div class="flip-card-front dark" data-height-xl="505"
-                                    style="background-image: url('images/3.jpg');">
-                                    <div class="flip-card-inner">
-                                        <div class="card nobg noborder text-center">
-                                            <div class="card-body">
-                                                <i class="icon-coffee h1"></i>
-                                                <h3 class="card-title">My favourite Coffee?</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flip-card-back" data-height-xl="505"
-                                    style="background-image: url('images/3.jpg');">
-                                    <div class="flip-card-inner">
-                                        <i class="icon-coffee h1"></i>
-                                        <h3 class="mb-2 text-white">My favourite coffee is
-                                            <%=candidate[0].coffee%>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-4">
-                            <div class="flip-card text-center top-to-bottom">
-                                <div class="flip-card-front bg-info dark" data-height-xl="200"
-                                    style="background-image: url('images/7.jpg');">
-                                    <div class="flip-card-inner">
-                                        <div class="card nobg noborder text-center">
-                                            <div class="card-body">
-                                                <i class="icon-shop h1"></i>
-                                                <h3 class="card-title">My current position?</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flip-card-back" data-height-xl="200"
-                                    style="background-image: url('images/3.jpg');">
-                                    <div class="flip-card-inner dark">
-                                        <i class="icon-shop h1"></i>
-                                        <h3 class="card-title">My current position is
-                                            <%=candidate[0].position %></h3>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-lg-4 mb-4">
-                            <div class="flip-card top-to-bottom">
-                                <div class="flip-card-front" data-height-xl="200"
-                                    style="background-image: url('images/3.jpg');">
-                                    <div class="flip-card-inner dark">
-                                        <div class="card nobg noborder">
-                                            <div class="card-body">
-                                                <i class="icon-shop h1"></i>
-                                                <h3 class="card-title">Awards?</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="flip-card-back" data-height-xl="200"
-                                    style="background-image: url('images/3.jpg');">
-                                    <div class="flip-card-inner dark">
-                                        <i class="icon-shop h1"></i>
-
-                                        <h3 class="card-title">I have an award for <%=candidate[0].award %></h3>
-
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
 
                 </div>
+
             </div>
+        </div>
 
 
     </section><!-- #content end -->
@@ -430,6 +457,8 @@
 
         $(document).ready(function () {
 
+
+
             $(window).on('resize', function () {
                 var win = $(this); //this = window
                 if (win.width() <= 380) {
@@ -441,7 +470,14 @@
                 }
             });
 
-        });
+
+            $('#likebutton').click(function () {
+                $.post("/likebutton", { barista: <%=candidate[0].id %>, client:<%=currentUser.id %> })
+                $('#likebutton').fadeOut(1000)
+
+            })
+        })
+
 
 
 
