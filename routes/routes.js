@@ -59,7 +59,6 @@ function welcomeMessageBusiness(req,res,next) {
         text: 'Thanks for signing up to Yalla Barista your one stop shop to finding great baristas to work in your cafe. Contact us on info@yallabarista.com if you have any enquiries'
     }
     smtpTransport.sendMail(mailOptions, function (err) {
-        console.log('success', 'An e-mail has been sent to ' + user[0].email);
         
     });
 
@@ -72,7 +71,7 @@ function welcomeMessageBarista(req,res,next) {
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: 'mailer@yallabarista.com',
+            user: 'no-reply@yallabarista.com',
             pass: 'admin1289' 
         },
         tls: {
@@ -86,7 +85,6 @@ function welcomeMessageBarista(req,res,next) {
         text: 'Thanks for signing up to Yalla Barista your one stop shop to finding great baristas to work in your cafe. Contact us on info@yallabarista.com if you have any enquiries'
     }
     smtpTransport.sendMail(mailOptions, function (err) {
-        console.log('success', 'An e-mail has been sent to ' + user[0].email);
         
     });
 

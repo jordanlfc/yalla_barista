@@ -97,3 +97,9 @@
 .bio-text{
 	margin:1em;
 }
+
+@media(max-width:450px){
+	#likebutton{
+		height:4em
+	}
+}

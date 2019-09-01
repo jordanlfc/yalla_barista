@@ -501,7 +501,12 @@ app.get('/user_:id', (req, res, err) => {
             if (!result[0] || !result[0].membership_active) {
                 res.send(404)
             } else {
-                res.render('user', { candidate: result })
+               console.log (`currentUser.like${result[0].id}`)
+                res.render('user', { 
+                    candidate: result,
+                    buttonTest: `currentUser.like${result[0].id}`
+                })
+                
             }
 
         })
@@ -752,12 +757,27 @@ app.get('/success', (req, res) => {
 app.post('/likebutton', (req, res) => {
 
     let sql = `
-    SELECT email,fname,lname,company_name
+    SELECT email,fname,lname,company_name,phone,country,city
     FROM users
     WHERE id = ?
     `
     let client = req.body.client
     let barista = req.body.barista
+
+    let sql2 = `
+    ALTER TABLE
+    users ADD COLUMN 
+    IF NOT EXISTS like${barista} VARCHAR(255)
+    `
+    
+    let sql3 = `
+    UPDATE users 
+    SET like${barista} = ?
+    WHERE id = ? 
+    `
+    
+
+    let data = [1,client]
 
     connection.query(sql, client, (err, found) => {
         if (err) {
@@ -770,7 +790,18 @@ app.post('/likebutton', (req, res) => {
                 res.redirect('back')
             }
             likeNotification(found,found2)
-            console.log(found[0].email,found2[0].email)
+            connection.query(sql2, data, (err,result) => {
+                if(err){
+                    res.redirect('back')
+                }
+                console.log(result)
+                connection.query(sql3,data,(err,result) =>{
+                    if(err){
+                        res.redirect('back')
+                    }
+                    console.log(result)
+                })
+            })
         })
     })
 })
@@ -877,7 +908,7 @@ app.post('/cv', withcv, (req, res) => {
             port: 465,
             secure: true, // true for 465, false for other ports
             auth: {
-                user: 'mailer@yallabarista.com', // generated ethereal user
+                user: 'no-reply@yallabarista.com', // generated ethereal user
                 pass: 'admin1289' // generated ethereal password
             },
             tls: {
@@ -972,7 +1003,7 @@ app.post('/contact', (req, res) => {
             port: 465,
             secure: true, // true for 465, false for other ports
             auth: {
-                user: 'mailer@yallabarista.com', // generated ethereal user
+                user: 'no-reply@yallabarista.com', // generated ethereal user
                 pass: 'admin1289' // generated ethereal password
             },
             tls: {
@@ -1056,7 +1087,7 @@ app.post('/forgot', function (req, res, next) {
                 port: 465,
                 secure: true, // true for 465, false for other ports
                 auth: {
-                    user: 'mailer@yallabarista.com', // generated ethereal user
+                    user: 'no-reply@yallabarista.com', // generated ethereal user
                     pass: 'admin1289' // generated ethereal password
                 },
                 tls: {
@@ -1065,7 +1096,7 @@ app.post('/forgot', function (req, res, next) {
             });
             var mailOptions = {
                 to: user[0].email,
-                from: 'mailer@yallabarista.com',
+                from: 'no-reply@yallabarista.com',
                 subject: 'Yalla Barista Password Reset',
                 text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
                     'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
@@ -1141,7 +1172,7 @@ app.post('/reset/:token', function (req, res) {
                 port: 465,
                 secure: true, // true for 465, false for other ports
                 auth: {
-                    user: 'mailer@yallabarista.com', // generated ethereal user
+                    user: 'no-reply@yallabarista.com', // generated ethereal user
                     pass: 'admin1289' // generated ethereal password
                 },
                 tls: {
@@ -1151,7 +1182,7 @@ app.post('/reset/:token', function (req, res) {
             console.log(user[0].email)
             var mailOptions = {
                 to: user[0].email,
-                from: 'mailer@yallabarista.com',
+                from: 'no-reply@yallabarista.com',
                 subject: 'Your password has been changed',
                 text:
                     'This is a confirmation that the password for your account ' + user[0].email + ' has just been changed.\n'
@@ -1212,7 +1243,7 @@ function welcomeMessage() {
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: 'mailer@yallabarista.com', // generated ethereal user
+            user: 'no-reply@yallabarista.com', // generated ethereal user
             pass: 'admin1289' // generated ethereal password
         },
         tls: {
@@ -1221,13 +1252,11 @@ function welcomeMessage() {
     });
     var mailOptions = {
         to: req.user.email,
-        from: 'mailer@yallabarista.com',
+        from: 'no-reply@yallabarista.com',
         subject: 'Yalla Barista - Welcome',
         text: 'Thanks for signing up to Yalla Barista your one stop shop to finding great baristas to work in your cafe. Contact us on info@yallabarista.com if you have any enquiries.'
     }
     smtpTransport.sendMail(mailOptions, function (err) {
-        console.log('mail sent');
-        console.log('success', 'An e-mail has been sent to ' + user[0].email + ' with further instructions.');
         done(err, 'done');
     });
 }
@@ -1239,7 +1268,7 @@ function pictureWarning() {
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: 'mailer@yallabarista.com', // generated ethereal user
+            user: 'no-reply@yallabarista.com', // generated ethereal user
             pass: 'admin1289' // generated ethereal password
         },
         tls: {
@@ -1248,7 +1277,7 @@ function pictureWarning() {
     });
     var mailOptions = {
         to: userEmail,
-        from: 'mailer@yallabarista.com',
+        from: 'no-reply@yallabarista.com',
         subject: 'Yalla Barista - Display Picture Warning',
         text: `
         Your profile picture has been removed by admin as it has violated our terms and conditions. Please upload a new picture of yourself. 
@@ -1272,7 +1301,7 @@ function likeNotification(x,y) {
         port: 465,
         secure: true, // true for 465, false for other ports
         auth: {
-            user: 'mailer@yallabarista.com', // generated ethereal user
+            user: 'no-reply@yallabarista.com', // generated ethereal user
             pass: 'admin1289' // generated ethereal password
         },
         tls: {
@@ -1280,17 +1309,24 @@ function likeNotification(x,y) {
         }
     });
     var mailOptions = {
-        to: `jordanfear@chompsmedia.com`,
-        from: 'mailer@yallabarista.com',
-        subject: 'Yalla Barista - Display Picture Warning',
+        to: `admin@yallabarista.com`,
+        from: 'no-reply@yallabarista.com',
+        subject: 'Like Notification',
         text: `
-        User ${x[0].company_name} has liked Barista ${y[0].fname} ${y[0].lname}.
+        Business '${x[0].company_name}' has liked Barista '${y[0].fname} ${y[0].lname}'.
 
-        Business details - ${x[0]}
+        Business details - ${x[0].company_name}
+        Country          - ${x[0].country}
+        Phone Number     - ${x[0].phone}
+        Email            - ${x[0].email}
 
 
 
-        Barista Email - ${y[0]}
+        Barista Name - ${y[0].fname} ${y[0].lname} 
+        Country      - ${y[0].country}
+        City         - ${y[0].city}
+        Email        - ${y[0].email}
+        Phone Number - ${y[0].phone}
         `
     }
     smtpTransport.sendMail(mailOptions, function (err) {
@@ -1299,15 +1335,6 @@ function likeNotification(x,y) {
         done(err, 'done');
     });
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1330,14 +1357,6 @@ function likeNotification(x,y) {
 // userRemover()
 
 
-
-
-
-
-
-
-
-
 app.get('/terms', (req, res) => {
     res.render('terms/terms')
 })
@@ -1351,8 +1370,6 @@ app.get('*', function (req, res) {
     res.sendStatus(404)
 
 });
-
-
 
 
 
